@@ -11,6 +11,10 @@
 		8326C9C025AA06100086742C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9BF25AA06100086742C /* ContentView.swift */; };
 		8326C9C225AA06120086742C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8326C9C125AA06120086742C /* Assets.xcassets */; };
 		8326C9C525AA06120086742C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8326C9C425AA06120086742C /* Preview Assets.xcassets */; };
+		8326C9CE25AA154E0086742C /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9CD25AA154E0086742C /* ImageSaver.swift */; };
+		8326C9D125AA15700086742C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9D025AA15700086742C /* ImagePicker.swift */; };
+		8326C9E125AA3FA50086742C /* AddContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9E025AA3FA50086742C /* AddContactView.swift */; };
+		8326C9E625AA41990086742C /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9E525AA41990086742C /* Contact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		8326C9C125AA06120086742C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8326C9C425AA06120086742C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8326C9C625AA06120086742C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8326C9CD25AA154E0086742C /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		8326C9D025AA15700086742C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		8326C9E025AA3FA50086742C /* AddContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactView.swift; sourceTree = "<group>"; };
+		8326C9E525AA41990086742C /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,10 @@
 			children = (
 				8326C9BD25AA06100086742C /* ConferenceContactsApp.swift */,
 				8326C9BF25AA06100086742C /* ContentView.swift */,
+				8326C9E525AA41990086742C /* Contact.swift */,
+				8326C9E025AA3FA50086742C /* AddContactView.swift */,
+				8326C9CD25AA154E0086742C /* ImageSaver.swift */,
+				8326C9D025AA15700086742C /* ImagePicker.swift */,
 				8326C9C125AA06120086742C /* Assets.xcassets */,
 				8326C9C625AA06120086742C /* Info.plist */,
 				8326C9C325AA06120086742C /* Preview Content */,
@@ -138,8 +150,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8326C9E625AA41990086742C /* Contact.swift in Sources */,
 				8326C9C025AA06100086742C /* ContentView.swift in Sources */,
+				8326C9D125AA15700086742C /* ImagePicker.swift in Sources */,
+				8326C9CE25AA154E0086742C /* ImageSaver.swift in Sources */,
 				8326C9BE25AA06100086742C /* ConferenceContactsApp.swift in Sources */,
+				8326C9E125AA3FA50086742C /* AddContactView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
