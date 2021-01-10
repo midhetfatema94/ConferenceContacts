@@ -1,5 +1,5 @@
 //
-//  ImageSaver.swift
+//  FileSaver.swift
 //  ConferenceContacts
 //
 //  Created by Waveline Media on 1/9/21.
@@ -7,16 +7,20 @@
 
 import UIKit
 
-class ImageSaver: NSObject {
+class FileSaver: NSObject {
     
     var successHandler: (() -> Void)?
     var errorHandler: ((Error) -> Void)?
     
-    func writeToDocumentFile(allContacts: [Contact]) {
+    func writeToDocumentFile(allContacts: [Contact], imageData: Data, imageUrl: URL) {
         do {
-            let filename = getContactsPath()
+            let filename = FileSaver.contactsPath
             let data = try JSONEncoder().encode(allContacts)
+            
             try data.write(to: filename, options: [.atomicWrite, .completeFileProtection])
+            
+            try imageData.write(to: imageUrl, options: [.atomicWrite, .completeFileProtection])
+            
             successHandler?()
             print("Save finished!")
         } catch let error {
@@ -25,7 +29,7 @@ class ImageSaver: NSObject {
         }
     }
     
-    func getDocumentsDirectory() -> URL {
+    static var documentsDirectory: URL {
         // find all possible documents directories for this user
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 
@@ -33,8 +37,8 @@ class ImageSaver: NSObject {
         return paths[0]
     }
     
-    func getContactsPath() -> URL {
-        return getDocumentsDirectory().appendingPathComponent("contacts")
+    static var contactsPath: URL {
+        return FileSaver.documentsDirectory.appendingPathComponent("contacts")
     }
 }
 

@@ -17,18 +17,27 @@ struct AddContactView: View {
     @State private var saveMessage = ""
     @State private var saveTitle = ""
     
-    @State var allContacts: [Contact]
+    @Binding var allContacts: [Contact]
+    
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
                 ZStack {
                     Rectangle()
-                        .fill(Color.gray)
-                    Text("Tap to select picture")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .fill(Color.secondary)
+                    
+                    if let image = inputImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                    } else {
+                        Text("Tap to select picture")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    }
                 }
                 .onTapGesture {
                     self.showingImagePicker = true
@@ -41,7 +50,7 @@ struct AddContactView: View {
                 
                 Spacer()
                 
-                Button(action: saveImage, label: {
+                Button(action: saveData, label: {
                     Text("Save Data")
                         .font(.title2)
                         .fontWeight(.bold)
@@ -54,7 +63,7 @@ struct AddContactView: View {
             }
             .padding()
             .navigationTitle("ConferenceContacts")
-            .sheet(isPresented: $showingImagePicker, onDismiss: displayImage) {
+            .sheet(isPresented: $showingImagePicker, onDismiss: nil) {
                 ImagePicker(image: self.$inputImage)
             }
             .alert(isPresented: $showingSaveMessage, content: {
@@ -66,11 +75,7 @@ struct AddContactView: View {
         }
     }
     
-    func displayImage() {
-        //display selected Image
-    }
-    
-    func saveImage() {
+    func saveData() {
         guard let finalImage = inputImage else {
             self.saveTitle = "Saving Failed!"
             self.saveMessage = "There is no image to process"
@@ -78,12 +83,10 @@ struct AddContactView: View {
             return
         }
 
-        let imageSaver = ImageSaver()
+        let imageSaver = FileSaver()
         
         imageSaver.successHandler = {
-            self.saveTitle = "Saved Successfully!"
-            self.saveMessage = "Filtered image has saved successfully"
-            self.showingSaveMessage = true
+            presentationMode.wrappedValue.dismiss()
         }
         
         imageSaver.errorHandler = {error in
@@ -92,29 +95,26 @@ struct AddContactView: View {
             self.showingSaveMessage = true
         }
         
-        
-        let imageName = "\(self.name).jpg"
-        let imageUrl = ImageSaver().getDocumentsDirectory().appendingPathComponent(imageName)
-        
         if let jpegData = finalImage.jpegData(compressionQuality: 0.8) {
-            do {
-                try jpegData.write(to: imageUrl, options: [.atomicWrite, .completeFileProtection])
-                let newContact = Contact(name: self.name, image: imageUrl, imageName: imageName)
-                allContacts.append(newContact)
-                imageSaver.writeToDocumentFile(allContacts: allContacts)
-            } catch let error {
-                self.saveTitle = "Writing Image Failed!"
-                self.saveMessage = error.localizedDescription
-                self.showingSaveMessage = true
-            }
+            
+            let imageId = UUID()
+            let imageName = "\(imageId).jpg"
+            let imageUrl = FileSaver.documentsDirectory.appendingPathComponent(imageName)
+            
+            let newContact = Contact(name: self.name, imageName: imageName)
+            newContact.image = finalImage
+            allContacts.append(newContact)
+            imageSaver.writeToDocumentFile(allContacts: allContacts, imageData: jpegData, imageUrl: imageUrl)
+        } else {
+            self.saveTitle = "Writing Image Failed!"
+            self.saveMessage = "Could not read image data"
+            self.showingSaveMessage = true
         }
-        
-        //dismiss on completion
     }
 }
 
 struct AddContactView_Previews: PreviewProvider {
     static var previews: some View {
-        AddContactView(allContacts: [])
+        AddContactView(allContacts: .constant([]))
     }
 }

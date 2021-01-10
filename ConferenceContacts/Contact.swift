@@ -6,34 +6,38 @@
 //
 
 import Foundation
+import UIKit
 
-class Contact: Codable {
+class Contact: Codable, Identifiable {
     
+    var id = UUID()
     var name: String
-    var image: URL
     var imageName: String
+    var image: UIImage?
     
     enum CodingKeys: CodingKey {
-        case name, image, imageName
+        case name, imageName
     }
     
-    init(name: String, image: URL, imageName: String) {
+    init(name: String, imageName: String) {
         self.name = name
-        self.image = image
         self.imageName = imageName
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
-        image = try container.decode(URL.self, forKey: .image)
         imageName = try container.decode(String.self, forKey: .imageName)
+        
+        let fileUrl = FileSaver.documentsDirectory.appendingPathComponent(imageName)
+        if let imageData = try? Data(contentsOf: fileUrl) {
+            image = UIImage(data: imageData)
+        }
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
-        try container.encode(image, forKey: .image)
         try container.encode(imageName, forKey: .imageName)
     }
 }

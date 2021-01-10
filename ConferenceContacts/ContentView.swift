@@ -13,9 +13,14 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List(allContacts, id: \.name) {contact in
-                //read image data and display
-                Text(contact.imageName)
+            List(allContacts) {contact in
+                if let contactImage = contact.image {
+                    Image(uiImage: contactImage)
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .clipShape(Circle())
+                }
+                
                 Text(contact.name)
             }
             .navigationTitle("ConferenceContacts")
@@ -26,13 +31,13 @@ struct ContentView: View {
                 Image(systemName: "plus")
             }))
             .sheet(isPresented: $showAddContact, onDismiss: nil, content: {
-                AddContactView(allContacts: allContacts)
+                AddContactView(allContacts: $allContacts)
             })
         }
     }
     
     func loadContacts() {
-        let filename = ImageSaver().getContactsPath()
+        let filename = FileSaver.contactsPath
         do {
             let data = try Data(contentsOf: filename)
             allContacts = try JSONDecoder().decode([Contact].self, from: data)
