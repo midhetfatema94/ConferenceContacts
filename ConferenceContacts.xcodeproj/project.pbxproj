@@ -15,6 +15,7 @@
 		8326C9D125AA15700086742C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9D025AA15700086742C /* ImagePicker.swift */; };
 		8326C9E125AA3FA50086742C /* AddContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9E025AA3FA50086742C /* AddContactView.swift */; };
 		8326C9E625AA41990086742C /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9E525AA41990086742C /* Contact.swift */; };
+		8326C9EA25AB41D80086742C /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326C9E925AB41D80086742C /* ContactDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8326C9D025AA15700086742C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8326C9E025AA3FA50086742C /* AddContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactView.swift; sourceTree = "<group>"; };
 		8326C9E525AA41990086742C /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		8326C9E925AB41D80086742C /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				8326C9BF25AA06100086742C /* ContentView.swift */,
 				8326C9E525AA41990086742C /* Contact.swift */,
 				8326C9E025AA3FA50086742C /* AddContactView.swift */,
+				8326C9E925AB41D80086742C /* ContactDetailView.swift */,
 				8326C9CD25AA154E0086742C /* FileSaver.swift */,
 				8326C9D025AA15700086742C /* ImagePicker.swift */,
 				8326C9C125AA06120086742C /* Assets.xcassets */,
@@ -152,6 +155,7 @@
 			files = (
 				8326C9E625AA41990086742C /* Contact.swift in Sources */,
 				8326C9C025AA06100086742C /* ContentView.swift in Sources */,
+				8326C9EA25AB41D80086742C /* ContactDetailView.swift in Sources */,
 				8326C9D125AA15700086742C /* ImagePicker.swift in Sources */,
 				8326C9CE25AA154E0086742C /* FileSaver.swift in Sources */,
 				8326C9BE25AA06100086742C /* ConferenceContactsApp.swift in Sources */,

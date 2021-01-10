@@ -14,14 +14,19 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(allContacts) {contact in
-                if let contactImage = contact.image {
-                    Image(uiImage: contactImage)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .clipShape(Circle())
+                NavigationLink(
+                    destination: ContactDetailView(contact: contact)
+                )
+                {
+                    if let contactImage = contact.image {
+                        Image(uiImage: contactImage)
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .clipShape(Circle())
+                    }
+                    
+                    Text(contact.name)
                 }
-                
-                Text(contact.name)
             }
             .navigationTitle("ConferenceContacts")
             .onAppear(perform: loadContacts)
@@ -40,7 +45,8 @@ struct ContentView: View {
         let filename = FileSaver.contactsPath
         do {
             let data = try Data(contentsOf: filename)
-            allContacts = try JSONDecoder().decode([Contact].self, from: data)
+            let contactData = try JSONDecoder().decode([Contact].self, from: data)
+            allContacts = contactData.sorted()
         } catch {
             print("Unable to load saved data.")
         }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class Contact: Codable, Identifiable {
+class Contact: Codable, Identifiable, Comparable {
     
     var id = UUID()
     var name: String
@@ -39,5 +39,13 @@ class Contact: Codable, Identifiable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(imageName, forKey: .imageName)
+    }
+    
+    static func < (lhs: Contact, rhs: Contact) -> Bool {
+        lhs.name < rhs.name
+    }
+    
+    static func == (lhs: Contact, rhs: Contact) -> Bool {
+        lhs.name == rhs.name
     }
 }

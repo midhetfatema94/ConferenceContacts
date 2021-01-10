@@ -104,6 +104,7 @@ struct AddContactView: View {
             let newContact = Contact(name: self.name, imageName: imageName)
             newContact.image = finalImage
             allContacts.append(newContact)
+            allContacts = allContacts.sorted()
             imageSaver.writeToDocumentFile(allContacts: allContacts, imageData: jpegData, imageUrl: imageUrl)
         } else {
             self.saveTitle = "Writing Image Failed!"
