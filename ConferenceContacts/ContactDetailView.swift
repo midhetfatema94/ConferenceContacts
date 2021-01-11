@@ -25,6 +25,16 @@ struct ContactDetailView: View {
             Text(contact.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
+            
+            if let details = contact.locationDetails {
+                Spacer()
+                
+                Text("Met this person at: ")
+                
+                MapView(centerCoordinate: .constant(details.coordinate),
+                        placeTitle: .constant(details.title),
+                        placeSubtitle: .constant(details.subtitle))
+            }
         }
     }
 }

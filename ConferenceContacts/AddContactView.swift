@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct AddContactView: View {
     @State private var name: String = ""
     @State private var showingImagePicker = false
     
     @State private var inputImage: UIImage?
+    @State private var location = CLLocationCoordinate2D()
+    @State private var locationTitle: String = ""
+    @State private var locationSubtitle: String = ""
     
     @State private var showingSaveMessage = false
     @State private var saveMessage = ""
@@ -50,6 +54,15 @@ struct AddContactView: View {
                 
                 Spacer()
                 
+                //add mapview here
+                MapView(centerCoordinate: $location, placeTitle: $locationTitle, placeSubtitle: $locationSubtitle)
+                
+                TextField("London", text: $locationTitle)
+                    .font(.title)
+                
+                TextField("Place of the 2012 Olympics", text: $locationSubtitle)
+                    .font(.title)
+                
                 Button(action: saveData, label: {
                     Text("Save Data")
                         .font(.title2)
@@ -72,6 +85,7 @@ struct AddContactView: View {
                       dismissButton: .default(Text("Okay"))
                 )
             })
+            .onAppear(perform: fetchCurrentLocation)
         }
     }
     
@@ -103,14 +117,29 @@ struct AddContactView: View {
             
             let newContact = Contact(name: self.name, imageName: imageName)
             newContact.image = finalImage
+            
+            let locationDetails = LocationDetails(coordinate: location, title: locationTitle, subtitle: locationSubtitle)
+            newContact.locationDetails = locationDetails
+            
             allContacts.append(newContact)
             allContacts = allContacts.sorted()
+            
             imageSaver.writeToDocumentFile(allContacts: allContacts, imageData: jpegData, imageUrl: imageUrl)
         } else {
             self.saveTitle = "Writing Image Failed!"
             self.saveMessage = "Could not read image data"
             self.showingSaveMessage = true
         }
+    }
+    
+    func fetchCurrentLocation() {
+        let locationFetcher = LocationFetcher()
+        
+        locationFetcher.successHandler = {knownLocation in
+            self.location = knownLocation
+        }
+        
+        locationFetcher.start()
     }
 }
 
